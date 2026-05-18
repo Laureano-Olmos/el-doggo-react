@@ -1,77 +1,39 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Clientes from './components/Clientes';
-import Mascotas from './components/Mascotas';
+import Login from './components/Login';
+import { Routes, Route } from 'react-router-dom';
+import VistaClientes from './components/VistaClientes';
+import VistaMascotas from './components/VistaMascotas';
+import VistaConfiguracion from './components/VistaConfiguracion';
+import Navegacion from './components/Navegacion';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [activeTab, setActiveTab] = useState('home');
 
-  const nombreApp = "El Dogo - Gestion de Veterinaria";
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Validación básica
-    if (user && password) {
-      setIsLoggedIn(true);
-    }
+  const handleLogin = (estado) => {
+    setIsLoggedIn(estado);
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className="login-container">
-        <h1>{nombreApp}</h1>
-        <form onSubmit={handleLogin}>
-          <h2>Iniciar Sesión</h2>
-          <div style={{ marginBottom: '10px' }}>
-            <label>Usuario: </label>
-            <input
-              type="text"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: '10px' }}>
-            <label>Contraseña: </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Ingresar</button>
-        </form>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <div>
-        <h1> {nombreApp} </h1>
-        <p>¡Bievenido! Acá gestionarás a tus Clientes y Mascotas.</p>
+    <div className="App-Container">
+      <h1>El Dogo - Gestión de Pacientes</h1>
 
-        {/* Menú de navegación simple */}
-        <nav style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
-          <button onClick={() => setActiveTab('home')}>Inicio</button>
-          <button onClick={() => setActiveTab('clientes')}>Clientes</button>
-          <button onClick={() => setActiveTab('mascotas')}>Mascotas</button>
-        </nav>
-
-        {/* Renderizado condicional */}
-        <section style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '8px' }}>
-          {activeTab === 'home' && <p>Selecciona una opción del menú para comenzar.</p>}
-          {activeTab === 'clientes' && <Clientes />}
-          {activeTab === 'mascotas' && <Mascotas />}
-        </section>
-        <button onClick={() => setIsLoggedIn(false)} style={{ marginTop: '20px' }}>Cerrar Sesión</button>
-      </div>
-    </>
-  )
+      {isLoggedIn ? (
+        <>
+          <Navegacion />
+          <Routes>
+            <Route path="/" element={<VistaClientes />} />
+            <Route path="/mascotas" element={<VistaMascotas />} />
+            <Route path="/config" element={<VistaConfiguracion />} />
+            <Route path="*" element={<h2>404 - Pagina no encontrada</h2>} />
+          </Routes>
+          <button className="btn-logout" onClick={() => setIsLoggedIn(false)}>Cerrar Sesion</button>
+        </>
+      ) : (
+        <Login onLoginExitoso={handleLogin} />
+      )}
+    </div>
+  );
 }
 
 export default App;
