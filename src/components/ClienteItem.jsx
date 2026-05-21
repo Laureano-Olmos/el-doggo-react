@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import styles from './ClienteItem.module.css';
+
 function ClienteItem({ cliente, onEliminar, onGuardar }) {
 
   const [isEditing, setIsEditing] = useState(false);
@@ -28,19 +31,21 @@ function ClienteItem({ cliente, onEliminar, onGuardar }) {
   };
 
   return (
-    <li key={cliente.id} className="cliente-item">
+    <li key={cliente.id} className={styles.tarjetaCliente}>
       {isEditing ? (
       <form onSubmit={handleGuardar} >
-        <input value={nombreEditado} onChange={(e) => setNombreEditado(e.target.value)} />
-        <input value={telefonoEditado} onChange={(e) => setTelefonoEditado(e.target.value)} />
+        <input placeholder='Nombre Cliente' value={nombreEditado} onChange={(e) => setNombreEditado(e.target.value)} />
+        <input placeholder='Teléfono' value={telefonoEditado} onChange={(e) => setTelefonoEditado(e.target.value)} />
         <button type="submit">💾 Guardar</button>
         <button type="button" onClick={() => setIsEditing(false)}>❌ Cancelar</button>
       </form>
       ) : (
-      <div>
-        <strong>{cliente.nombre}</strong> - Tel: {cliente.telefono}
-        <button className="btn-editar" onClick={handleEditClick}> Editar</button>
-        <button className="btn-eliminar" onClick={handleEliminarClick}>🗑️ Eliminar</button>
+      <div className={styles.infoCliente}>
+        <strong className={styles.nombreCliente}>{cliente.nombre}</strong> - Tel: {cliente.telefono}
+        <div className={styles.acciones}>
+          <button className="btn-editar" onClick={handleEditClick}>📝 Editar</button>
+          <button className="btn-eliminar" onClick={handleEliminarClick}>🗑️ Eliminar</button>
+        </div>
       </div>
     )}
     </li>

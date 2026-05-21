@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import FormularioCliente from './formularioCliente';
-import ClienteItem from './ClienteItem';
+import React, { useState, useEffect } from "react";
+import FormularioCliente from "./formularioCliente";
+import ClienteItem from "./ClienteItem";
+import styles from "./VistaClientes.module.css";
 
 function VistaClientes() {
   const [clientes, setClientes] = useState(() => {
-    const datosGuardados = localStorage.getItem('clientesDoggo');
+    const datosGuardados = localStorage.getItem("clientesDoggo");
     return datosGuardados ? JSON.parse(datosGuardados) : [];
   });
 
@@ -13,12 +14,14 @@ function VistaClientes() {
   };
 
   const eliminarCliente = (clienteId) => {
-    const listaActualizada = clientes.filter(cliente => cliente.id !== clienteId);
+    const listaActualizada = clientes.filter(
+      (cliente) => cliente.id !== clienteId,
+    );
     setClientes(listaActualizada);
   };
 
   const actualizarCliente = (clienteActualizado) => {
-    const listaActualizada = clientes.map(cliente => {
+    const listaActualizada = clientes.map((cliente) => {
       if (cliente.id === clienteActualizado.id) {
         return clienteActualizado;
       }
@@ -29,28 +32,30 @@ function VistaClientes() {
 
   useEffect(() => {
     console.log("Detectado cambio en la lista de clientes. ¡Guardando!");
-    localStorage.setItem('clientesDoggo', JSON.stringify(clientes));
+    localStorage.setItem("clientesDoggo", JSON.stringify(clientes));
   }, [clientes]);
 
   return (
-    <section>
-      <h2>Gestión de Clientes</h2>
-      <p>Total de clientes registrados: **{clientes.length}**</p>
-      <hr />
-      <FormularioCliente onClienteAgregado={agregarNuevoCliente} />
+    <div className={styles.contenedorPrincipal}>
+      <section>
+        <h2 className={styles.titulo}>Gestión de Clientes</h2>
+        <p className={styles.contador}>Total de clientes registrados: {clientes.length}</p>
+        <hr />
+        <FormularioCliente onClienteAgregado={agregarNuevoCliente} />
 
-      <h2>Clientes Actuales</h2>
-      <ul className='lista-clientes'>
-        {clientes.map(cliente => (
-          <ClienteItem 
-            key={cliente.id} 
-            cliente={cliente} 
-            onEliminar={eliminarCliente} 
-            onGuardar={actualizarCliente} 
-          />
-        ))}
-      </ul>
-    </section>
+        <h2>Clientes Actuales</h2>
+        <ul className="lista-clientes">
+          {clientes.map((cliente) => (
+            <ClienteItem
+              key={cliente.id}
+              cliente={cliente}
+              onEliminar={eliminarCliente}
+              onGuardar={actualizarCliente}
+            />
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }
 

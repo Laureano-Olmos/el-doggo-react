@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import styles from "./MascotaItem.module.css";
 
 function MascotaItem({mascota,onEliminar,onActualizar,clientes}) {
 
@@ -42,12 +44,12 @@ function MascotaItem({mascota,onEliminar,onActualizar,clientes}) {
     }
 
     return(
-        <li key={mascota.id}>
+        <li key={mascota.id} className={styles.tarjetaMascota}>
             {isEditing ? (
-                <form onSubmit={handleGuardar}>
-                    <input type="text" value={nombreEditado} onChange={(e) => setNombreEditado(e.target.value)} />
-                    <input type="text" value={especieEditado} onChange={(e) => setEspecieEditado(e.target.value)} />
-                    <input type="text" value={razaEditado} onChange={(e) => setRazaEditado(e.target.value)} />
+                <form onSubmit={handleGuardar} className={styles.modoEdicion}>
+                    <input type="text" placeholder='Nombre Mascota' value={nombreEditado} onChange={(e) => setNombreEditado(e.target.value)} />
+                    <input type="text" placeholder='Especie' value={especieEditado} onChange={(e) => setEspecieEditado(e.target.value)} />
+                    <input type="text" placeholder='Raza' value={razaEditado} onChange={(e) => setRazaEditado(e.target.value)} />
                     <select value={clienteIdEditado} onChange={(e) => setClienteIdEditado(e.target.value)}>
                         <option value="">Seleccionar dueño</option>
                         {clientes.map((cliente) => (
@@ -56,17 +58,19 @@ function MascotaItem({mascota,onEliminar,onActualizar,clientes}) {
                             </option>
                         ))}
                     </select>
-                    <button type="submit">Guardar</button>
-                    <button type="button" onClick={handleCancelar}>Cancelar</button>
+                    <button type="submit">💾 Guardar</button>
+                    <button type="button" onClick={handleCancelar}>❌ Cancelar</button>
                 </form>
             ) : (
-                <>
-                    ** {mascota.nombre} ** - Raza: {mascota.raza} - Especie: {mascota.especie} - Dueño: {getDuenio(mascota.clienteId)}
-                    <button className="btn-editar" onClick={handleEditar}> Editar</button>
-                    <button className="btn-eliminar" onClick={handleEliminar}> 🗑️ Eliminar</button>
-                </>
+                <div className={styles.infoMascota}>
+                    <strong className={styles.nombreMascota}>{mascota.nombre}</strong>Raza: {mascota.raza} - Especie: {mascota.especie} - <span className={styles.duenio}>Dueño: {getDuenio(mascota.clienteId)}</span>
+                    <div className={styles.acciones}>
+                        <button onClick={handleEditar}>📝 Editar</button>
+                        <button onClick={handleEliminar}> 🗑️ Eliminar</button>
+                    </div>
+                </div>
             )}
         </li>
     )
 }
-export default MascotaItem
+export default MascotaItem;

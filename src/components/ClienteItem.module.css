@@ -1,0 +1,45 @@
+.tarjetaCliente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #fff;
+    border-left: 5px solid aqua;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.tarjetaCliente:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.infoCliente {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.nombreCliente {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-right: 15px;
+}
+
+.modoEdicion {
+    width: 100px;
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+    margin-left: 20px;
+}

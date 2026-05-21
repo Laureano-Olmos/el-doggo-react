@@ -28,10 +28,9 @@ function FormularioMascota({ clientes, onMascotaAgregada }) {
         <form onSubmit={handleSubmit} className="formulario-mascota">
             <h3>Nueva Mascota</h3>
             <label>
+                Dueño:
                 <select value={clienteId} onChange={(e) => setClienteId(e.target.value)} required>
-                    <option key={cliente.id} value={cliente.id}>
-                        {cliente.nombre}
-                    </option>
+                    <option value="">Seleccionar cliente</option>
                     {clientes.map(cliente => (
                         <option key={cliente.id} value={cliente.id}>
                             {cliente.nombre}

@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App-Container">
-      <h1>El Dogo - Gestión de Pacientes</h1>
+      <h1>El Dogo - Gestión de veterinaria</h1>
 
       {isLoggedIn ? (
         <>

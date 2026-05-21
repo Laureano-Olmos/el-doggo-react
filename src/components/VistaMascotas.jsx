@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import formularioMascota from "./formularioMascota";
+import FormularioMascota from "./formularioMascota";
 import MascotaItem from "./MascotaItem";
+import styles from "./VistaMascotas.module.css";
 
 function VistaMascotas() {
 
@@ -40,12 +41,12 @@ function VistaMascotas() {
     }, [mascotas]);
 
     return (
-        <div>
+        <div className={styles.contenedorPrincipal}>
             <section>
-                <h2>Gestión de Mascotas</h2>
-                <p>Total de mascotas registradas: **{mascotas.length}**</p>
+                <h2 className={styles.titulo}>Gestión de Mascotas</h2>
+                <p className={styles.contador}>Total de mascotas registradas: {mascotas.length}</p>
                 <hr />
-                <formularioMascota clientes={clientes} onMascotaAgregada={agregarMascota} />
+                <FormularioMascota clientes={clientes} onMascotaAgregada={agregarMascota} />
                 <h2>Mascotas actuales</h2>
                 <ul>
                     {mascotas.map((mascota) => (
